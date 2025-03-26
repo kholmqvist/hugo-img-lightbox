@@ -24,8 +24,20 @@ hugo-img-lightbox/
 │   └── partials/
 │       └── lightbox-footer.html
 │       └── lightbox-head.html
+├── static/
+│   ├── css/
+│   │   └── lightbox.min.css
+│   ├── images/
+│   │   └── close.png
+│   │   └── loading.gif
+│   │   └── next.png
+│   │   └── prev.png
+│   └── js/
+│       └── lightbox-plus-jquery.min.js
 ├── README.md
-└── go.mod
+├── go.mod
+└── theme.toml
+
 ```
 
 ---
