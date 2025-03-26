@@ -22,7 +22,8 @@ hugo-img-lightbox/
 │   ├── shortcodes/
 │   │   └── img.html
 │   └── partials/
-│       └── lightbox.html
+│       └── lightbox-footer.html
+│       └── lightbox-head.html
 ├── README.md
 └── go.mod
 ```
@@ -57,7 +58,7 @@ hugo mod get github.com/kholmqivst/hugo-img-lightbox
 
 ```go-html
 {{ if .Scratch.Get "usesLightbox" }}
-  {{ partial "lightbox.html" . }}
+  {{ partial "lightbox-head.html" . }}
 {{ end }}
 ```
 
