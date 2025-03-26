@@ -1,0 +1,5 @@
+name = "hugo-image-lightbox"
+license = "MIT"
+description = "Responsive image shortcode with optional lightbox and figcaption"
+min_version = "0.80.0"
+author = "Kenneth Holmqvist"

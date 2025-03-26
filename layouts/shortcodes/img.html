@@ -1,0 +1,53 @@
+{{/* load lightbox2 */}}
+{{ .Page.Scratch.Set "usesLightbox" true }}
+
+{{/* get file that matches the filename as specified as src="" in shortcode */}}
+{{ $src := .Page.Resources.GetMatch (.Get "src") }}
+{{ $caption := .Get "caption" }}
+
+
+{{ if not $src }}
+  <p style="color: red;">⚠️ Could not find image '{{ .Get "src" }}'</p>
+{{ else }}
+  {{ if in (.Get "src") "http" }}
+    <img src="{{$src}}" alt="{{ .Get "alt" | default "" }}">
+  {{ else if in (.Get "src") ".gif" }}
+    <img src="{{$src.RelPermalink}}" alt="{{ .Get "alt" | default "" }}">
+  {{ else }}
+    {{ $tinyw := default "500x" }}
+    {{ $smallw := default "800x" }}
+    {{ $mediumw := default "1200x" }}
+
+    {{ .Scratch.Set "tiny" ($src.Resize $tinyw) }}
+    {{ .Scratch.Set "small" ($src.Resize $smallw) }}
+    {{ .Scratch.Set "medium" ($src.Resize $mediumw) }}
+
+    {{ $tiny := .Scratch.Get "tiny" }}
+    {{ $small := .Scratch.Get "small" }}
+    {{ $medium := .Scratch.Get "medium" }}
+   
+    {{ if not $src }}
+      <p style="color:red;">Image not found!</p>
+    {{ end }}
+    
+    <figure>
+      <a href="{{ $src.RelPermalink }}" data-lightbox="gallery" {{ with .Get "caption" }}data-title="{{ . }}"{{ end }}>
+        <img
+          sizes="(min-width: 35em) 720px, 100vw"
+          srcset='
+            {{ with $tiny.RelPermalink }}{{.}} 500w{{ end }},
+            {{ with $small.RelPermalink }}, {{.}} 800w{{ end }},
+            {{ with $medium.RelPermalink }}, {{.}} 1200w{{ end }}'
+          src="{{ $medium.RelPermalink }}"
+          loading="lazy"
+          alt="{{ .Get "alt" | default "" }}">
+      </a>
+      {{ with .Get "caption" }}
+        <figcaption>{{ . }}</figcaption>
+      {{ end }}
+    </figure>
+
+  {{ end }}
+{{ end }}
+
+{{/* Use it in markup like this: {{< img src="/images/pfsenseipv6_2.png" alt="WAN Interface IPv6 Options" >}} */}}
