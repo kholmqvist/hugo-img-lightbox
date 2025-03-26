@@ -54,11 +54,17 @@ path = "github.com/kholmqivst/hugo-img-lightbox"
 hugo mod get github.com/kholmqivst/hugo-img-lightbox
 ```
 
-### 4. Add the Lightbox partial in your layout (`baseof.html` or similar):
+### 4. Add the Lightbox partials in your layout (`baseof.html` or similar):
 
 ```go-html
+<!-- place this inside your <head></head> tags -->
 {{ if .Scratch.Get "usesLightbox" }}
   {{ partial "lightbox-head.html" . }}
+{{ end }}
+
+<!-- place this before your closing </body> tag -->
+{{ if .Scratch.Get "usesLightbox" }}
+  {{ partial "lightbox-footer.html" . }}
 {{ end }}
 ```
 
@@ -70,9 +76,7 @@ hugo mod get github.com/kholmqivst/hugo-img-lightbox
 
 ✅ Images must be inside the same page bundle as `index.md` (i.e., next to your content file).
 
----
-
-### 6. Use python to convert all existing markdown images to use the img shortcode
+### 6. (Optional) Use python to convert all existing markdown images to use the img shortcode
 
 Here’s a clean Python 3 script that will:
 	1.	Recursively search all .md files in your content/ folder
